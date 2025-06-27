@@ -91,7 +91,7 @@ const Homepage = () => {
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16 stagger-enhanced-1">
             <Link 
               to="/file-fir"
-              className="bg-green-600 hover:bg-green-700 text-white px-12 py-6 rounded-lg font-bold text-xl shadow-lg btn-enhanced hover-lift focus-indicator flex items-center glow-on-hover"
+              className="bg-blue-600 hover:bg-blue-700 text-white px-12 py-6 rounded-lg font-bold text-xl shadow-lg btn-enhanced hover-lift focus-indicator flex items-center glow-on-hover"
               onClick={playClickSound}
             >
               <div className="service-icon mr-3">
@@ -103,7 +103,7 @@ const Homepage = () => {
             </Link>
             <Link 
               to="/status"
-              className="bg-blue-600 hover:bg-blue-700 text-white px-12 py-6 rounded-lg font-bold text-xl shadow-lg btn-enhanced hover-lift focus-indicator flex items-center glow-on-hover"
+              className="bg-orange-500 hover:bg-orange-600 text-white px-12 py-6 rounded-lg font-bold text-xl shadow-lg btn-enhanced hover-lift focus-indicator flex items-center glow-on-hover"
               onClick={playClickSound}
             >
               <div className="service-icon mr-3">
