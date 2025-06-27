@@ -28,7 +28,7 @@ function App() {
         <BrowserRouter>
           <div className="flex flex-col min-h-screen">
             <Navbar />
-            <main className="flex-grow">
+            <main className="flex-grow page-wrapper">
               <Routes>
                 <Route path="/" element={<Homepage />} />
                 
@@ -103,6 +103,26 @@ function App() {
             </main>
             <Footer />
           </div>
+          {/* Toast Container */}
+          <Toaster 
+            position="top-right"
+            reverseOrder={false}
+            gutter={8}
+            containerClassName=""
+            containerStyle={{}}
+            toastOptions={{
+              className: '',
+              duration: 4000,
+              style: {
+                background: '#fff',
+                color: '#363636',
+                boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
+                borderRadius: '8px',
+                fontSize: '14px',
+                maxWidth: '400px',
+              },
+            }}
+          />
         </BrowserRouter>
       </AuthProvider>
     </div>
