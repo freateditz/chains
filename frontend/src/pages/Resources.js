@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { showDownloadToast } from '../utils/toastManager';
+import { playClickSound } from '../utils/soundManager';
 
 const Resources = () => {
   const [activeTab, setActiveTab] = useState('forms');
