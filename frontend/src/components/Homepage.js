@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { showAdminToast } from '../utils/toastManager';
 import { playClickSound } from '../utils/soundManager';
@@ -6,13 +6,45 @@ import { playClickSound } from '../utils/soundManager';
 const Homepage = () => {
   const [showAdminLogin, setShowAdminLogin] = useState(false);
   const [adminCredentials, setAdminCredentials] = useState({ username: '', password: '' });
+  const [animatedStats, setAnimatedStats] = useState({});
 
   const quickStats = [
-    { label: 'FIRs Registered Today', value: '1,247' },
-    { label: 'Cases Under Investigation', value: '15,832' },
-    { label: 'Cases Resolved This Month', value: '3,456' },
-    { label: 'Police Stations Online', value: '2,847' }
+    { label: 'FIRs Registered Today', value: '1,247', target: 1247 },
+    { label: 'Cases Under Investigation', value: '15,832', target: 15832 },
+    { label: 'Cases Resolved This Month', value: '3,456', target: 3456 },
+    { label: 'Police Stations Online', value: '2,847', target: 2847 }
   ];
+
+  // Counter animation effect
+  useEffect(() => {
+    const animateNumbers = () => {
+      quickStats.forEach((stat, index) => {
+        const target = stat.target;
+        const duration = 2000; // 2 seconds
+        const step = target / (duration / 50); // Update every 50ms
+        let current = 0;
+        
+        const timer = setInterval(() => {
+          current += step;
+          if (current >= target) {
+            current = target;
+            clearInterval(timer);
+          }
+          
+          setAnimatedStats(prev => ({
+            ...prev,
+            [index]: current < 1000 ? 
+              Math.floor(current).toString() : 
+              Math.floor(current).toLocaleString()
+          }));
+        }, 50);
+      });
+    };
+
+    // Start animation after a delay
+    const timeout = setTimeout(animateNumbers, 1000);
+    return () => clearTimeout(timeout);
+  }, []);
 
   const announcements = [
     {
