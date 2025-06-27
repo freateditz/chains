@@ -34,8 +34,8 @@ const Homepage = () => {
 
   const handleAdminLogin = (e) => {
     e.preventDefault();
-    // Simulate admin login
-    alert('Admin login functionality will be implemented here');
+    playClickSound();
+    showAdminToast('Admin login functionality will be implemented here', 'info');
     setShowAdminLogin(false);
   };
 
