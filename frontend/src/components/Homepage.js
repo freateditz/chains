@@ -294,8 +294,8 @@ const Homepage = () => {
               </h3>
               <div className="space-y-4">
                 {announcements.map((announcement, index) => (
-                  <div key={index} className="border-l-4 border-blue-500 pl-4 py-2">
-                    <div className="text-xs text-gray-500 mb-1">{announcement.date}</div>
+                  <div key={index} className="announcement-card border-l-4 border-blue-500 pl-4 py-2 rounded-r">
+                    <div className="announcement-date text-xs text-gray-500 mb-1">{announcement.date}</div>
                     <h4 className="font-semibold text-gray-900 text-sm mb-2">{announcement.title}</h4>
                     <p className="text-gray-700 text-xs leading-relaxed">{announcement.description}</p>
                   </div>
@@ -313,42 +313,50 @@ const Homepage = () => {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             <Link 
               to="/resources" 
-              className="text-blue-600 hover:text-blue-800 font-medium flex items-center p-4 bg-blue-50 rounded-lg card-interactive focus-indicator"
+              className="quick-link-enhanced text-blue-600 hover:text-blue-800 font-medium flex items-center p-4 bg-blue-50 rounded-lg focus-indicator"
               onClick={playClickSound}
             >
-              <svg className="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-              </svg>
+              <div className="service-icon mr-3">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                </svg>
+              </div>
               Find Police Station
             </Link>
             <Link 
               to="/resources" 
-              className="text-blue-600 hover:text-blue-800 font-medium flex items-center p-4 bg-blue-50 rounded-lg card-interactive focus-indicator"
+              className="quick-link-enhanced text-blue-600 hover:text-blue-800 font-medium flex items-center p-4 bg-blue-50 rounded-lg focus-indicator"
               onClick={playClickSound}
             >
-              <svg className="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-              </svg>
+              <div className="service-icon mr-3">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+              </div>
               Download Forms
             </Link>
             <Link 
               to="/resources" 
-              className="text-blue-600 hover:text-blue-800 font-medium flex items-center p-4 bg-blue-50 rounded-lg card-interactive focus-indicator"
+              className="quick-link-enhanced text-blue-600 hover:text-blue-800 font-medium flex items-center p-4 bg-blue-50 rounded-lg focus-indicator"
               onClick={playClickSound}
             >
-              <svg className="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
+              <div className="service-icon mr-3">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
               FAQ
             </Link>
             <Link 
               to="/contact" 
-              className="text-blue-600 hover:text-blue-800 font-medium flex items-center p-4 bg-blue-50 rounded-lg card-interactive focus-indicator"
+              className="quick-link-enhanced text-blue-600 hover:text-blue-800 font-medium flex items-center p-4 bg-blue-50 rounded-lg focus-indicator"
               onClick={playClickSound}
             >
-              <svg className="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-              </svg>
+              <div className="service-icon mr-3">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+              </div>
               Contact Us
             </Link>
           </div>
