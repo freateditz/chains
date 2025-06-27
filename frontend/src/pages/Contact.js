@@ -329,27 +329,23 @@ const Contact = () => {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className={`flex items-center px-8 py-3 rounded-lg font-medium transition-all duration-200 ${
+                    className={`w-full py-4 px-6 rounded-lg font-semibold text-lg btn-animate focus-indicator ${
                       isSubmitting
                         ? 'bg-gray-400 cursor-not-allowed'
-                        : 'bg-blue-600 hover:bg-blue-700'
-                    } text-white`}
+                        : 'bg-blue-600 hover:bg-blue-700 text-white'
+                    }`}
+                    onClick={playClickSound}
                   >
                     {isSubmitting ? (
-                      <>
-                        <svg className="animate-spin h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24">
+                      <div className="flex items-center justify-center">
+                        <svg className="spinner -ml-1 mr-3 h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
                           <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" className="opacity-25"></circle>
                           <path fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" className="opacity-75"></path>
                         </svg>
-                        Sending...
-                      </>
+                        Sending Message...
+                      </div>
                     ) : (
-                      <>
-                        Send Message
-                        <svg className="h-5 w-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
-                        </svg>
-                      </>
+                      <>📧 Send Message</>
                     )}
                   </button>
                 </div>
