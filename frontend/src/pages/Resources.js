@@ -170,23 +170,26 @@ const Resources = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12">
+    <div className="min-h-screen bg-gray-50 py-12 animate-page-enter">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center mb-12">
+        <div className="text-center mb-12 animate-hero-enter">
           <h1 className="text-4xl font-bold text-gray-900 mb-4">Legal Resources</h1>
           <p className="text-xl text-gray-600">Everything you need to know about legal procedures and rights</p>
         </div>
 
         {/* Tabs */}
-        <div className="bg-white rounded-2xl shadow-lg mb-8">
+        <div className="bg-white rounded-2xl shadow-lg mb-8 animate-fade-in">
           <div className="border-b border-gray-200">
             <nav className="flex space-x-8 px-8 py-4 overflow-x-auto">
               {tabs.map((tab) => (
                 <button
                   key={tab.id}
-                  onClick={() => setActiveTab(tab.id)}
-                  className={`flex items-center space-x-2 px-4 py-2 rounded-lg font-medium transition-all duration-200 whitespace-nowrap ${
+                  onClick={() => {
+                    playClickSound();
+                    setActiveTab(tab.id);
+                  }}
+                  className={`flex items-center space-x-2 px-4 py-2 rounded-lg font-medium tab-button focus-indicator whitespace-nowrap ${
                     activeTab === tab.id
                       ? 'bg-blue-100 text-blue-700'
                       : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
@@ -204,11 +207,11 @@ const Resources = () => {
           <div className="p-8">
             {/* Forms Tab */}
             {activeTab === 'forms' && (
-              <div>
+              <div className="tab-content">
                 <h2 className="text-2xl font-bold text-gray-900 mb-6">Downloadable Forms</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {downloadForms.map((form, index) => (
-                    <div key={index} className="bg-gray-50 rounded-xl p-6 hover:bg-gray-100 transition-colors duration-200">
+                    <div key={index} className={`bg-gray-50 rounded-xl p-6 card-interactive animate-stagger-${(index % 4) + 1}`}>
                       <div className="flex items-start justify-between mb-4">
                         <div className="flex-1">
                           <h3 className="text-lg font-semibold text-gray-900 mb-2">{form.title}</h3>
@@ -223,7 +226,7 @@ const Resources = () => {
                         </div>
                         <button
                           onClick={() => handleDownload(form.title)}
-                          className="ml-4 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-200 flex items-center"
+                          className="ml-4 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 btn-animate focus-indicator flex items-center"
                         >
                           <svg className="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
