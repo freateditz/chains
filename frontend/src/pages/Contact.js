@@ -100,19 +100,19 @@ const Contact = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12">
+    <div className="min-h-screen bg-gray-50 py-12 animate-page-enter">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center mb-12">
+        <div className="text-center mb-12 animate-hero-enter">
           <h1 className="text-4xl font-bold text-gray-900 mb-4">Contact Us</h1>
           <p className="text-xl text-gray-600">We're here to help you 24/7</p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Contact Information */}
-          <div className="lg:col-span-1 space-y-6">
+          <div className="lg:col-span-1 space-y-6 animate-slide-in-left">
             {/* Emergency Contacts */}
-            <div className="bg-red-50 border border-red-200 rounded-2xl p-6">
+            <div className="bg-red-50 border border-red-200 rounded-2xl p-6 card-interactive">
               <h2 className="text-xl font-bold text-red-900 mb-4">Emergency Contacts</h2>
               <div className="space-y-4">
                 <div className="flex items-center space-x-3">
