@@ -43,48 +43,53 @@ const Homepage = () => {
     <div className="min-h-screen bg-gray-50 animate-page-enter">
       
       {/* SECTION 1: Hero & Main Actions */}
-      <div className="bg-white border-b-4 border-orange-500">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <div className="text-center mb-12 animate-hero-enter">
-            <h1 className="text-4xl font-bold text-blue-900 mb-4">
+      <div className="bg-white border-b-4 border-orange-500 hero-enhanced relative overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 relative z-10">
+          <div className="text-center mb-12 hero-float">
+            <h1 className="text-4xl font-bold text-white mb-4 text-gradient">
               Online First Information Report (FIR) System
             </h1>
-            <p className="text-lg text-gray-700 max-w-4xl mx-auto leading-relaxed">
+            <p className="text-lg text-blue-100 max-w-4xl mx-auto leading-relaxed">
               A secure and transparent platform for filing FIRs online. Submit your complaint 24x7 
               and track its progress in real-time through the official government portal.
             </p>
           </div>
           
           {/* Main Action Buttons */}
-          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16 animate-stagger-1">
+          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16 stagger-enhanced-1">
             <Link 
               to="/file-fir"
-              className="bg-green-600 hover:bg-green-700 text-white px-12 py-6 rounded-lg font-bold text-xl shadow-lg btn-animate hover-lift focus-indicator flex items-center"
+              className="bg-green-600 hover:bg-green-700 text-white px-12 py-6 rounded-lg font-bold text-xl shadow-lg btn-enhanced hover-lift focus-indicator flex items-center glow-on-hover"
               onClick={playClickSound}
             >
-              <svg className="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-              </svg>
+              <div className="service-icon mr-3">
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                </svg>
+              </div>
               File New FIR
             </Link>
             <Link 
               to="/status"
-              className="bg-blue-600 hover:bg-blue-700 text-white px-12 py-6 rounded-lg font-bold text-xl shadow-lg btn-animate hover-lift focus-indicator flex items-center"
+              className="bg-blue-600 hover:bg-blue-700 text-white px-12 py-6 rounded-lg font-bold text-xl shadow-lg btn-enhanced hover-lift focus-indicator flex items-center glow-on-hover"
               onClick={playClickSound}
             >
-              <svg className="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-              </svg>
+              <div className="service-icon mr-3">
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+              </div>
               Track FIR Status
             </Link>
           </div>
 
           {/* Statistics Bar */}
-          <div className="bg-blue-900 text-white rounded-xl p-8 shadow-lg animate-stagger-2">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="bg-slate-900 text-white rounded-xl p-8 shadow-lg stagger-enhanced-2 relative overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-900/20 to-green-900/20"></div>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 relative z-10">
               {quickStats.map((stat, index) => (
-                <div key={index} className={`text-center counter-animate animate-stagger-${index + 1}`}>
-                  <div className="text-3xl font-bold text-orange-400 mb-2">{stat.value}</div>
+                <div key={index} className={`text-center stat-counter stagger-enhanced-${index + 1}`} style={{'--delay': `${index * 0.2}s`}}>
+                  <div className="stat-number text-3xl font-bold text-orange-400 mb-2">{stat.value}</div>
                   <div className="text-sm text-blue-100">{stat.label}</div>
                 </div>
               ))}
