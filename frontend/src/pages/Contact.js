@@ -49,9 +49,12 @@ const Contact = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
+    playClickSound();
     
     // Simulate API call
     setTimeout(() => {
+      const refNumber = `REF${Date.now()}`;
+      showContactSuccessToast(refNumber);
       setSubmitted(true);
       setIsSubmitting(false);
     }, 2000);
