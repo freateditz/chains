@@ -57,11 +57,11 @@ const CitizenLogin = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 animate-page-enter">
       <div className="max-w-md w-full space-y-8">
-        <div className="text-center">
+        <div className="text-center animate-hero-enter">
           <div className="flex items-center justify-center mb-6">
-            <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center">
+            <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center hover-glow">
               <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0015.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 008 4.07M3 15.364c.64-1.319 1-2.8 1-4.364 0-1.457.39-2.823 1.07-4" />
               </svg>
@@ -71,13 +71,13 @@ const CitizenLogin = () => {
           <h1 className="mt-2 text-2xl font-semibold text-gray-900">🏛️ Citizen Login</h1>
           <p className="mt-2 text-sm text-gray-600">Access your account to file and track FIRs</p>
           {from !== '/citizen-dashboard' && (
-            <div className="mt-4 p-3 bg-blue-50 rounded-lg border border-blue-200">
+            <div className="mt-4 p-3 bg-blue-50 rounded-lg border border-blue-200 animate-scale-in">
               <p className="text-sm text-blue-700">🔐 Please login to file an FIR</p>
             </div>
           )}
         </div>
 
-        <div className="bg-white rounded-xl shadow-lg p-8 border-l-4 border-blue-600">
+        <div className="bg-white rounded-xl shadow-lg p-8 border-l-4 border-blue-600 animate-slide-in-left">
           <div className="mb-6">
             <h3 className="text-lg font-semibold text-gray-900 mb-2">Welcome back</h3>
             <p className="text-sm text-gray-600">Enter your credentials to access your dashboard</p>
@@ -85,7 +85,7 @@ const CitizenLogin = () => {
 
           <form onSubmit={handleSubmit} className="space-y-6">
             {error && (
-              <div className="bg-red-50 border border-red-200 rounded-lg p-4 text-sm text-red-700">
+              <div className="bg-red-50 border border-red-200 rounded-lg p-4 text-sm text-red-700 animate-scale-in">
                 {error}
               </div>
             )}
@@ -99,7 +99,7 @@ const CitizenLogin = () => {
                 required
                 value={formData.email}
                 onChange={handleInputChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg form-field focus-indicator"
                 placeholder="Enter Your Email"
               />
             </div>
@@ -113,7 +113,7 @@ const CitizenLogin = () => {
                 required
                 value={formData.password}
                 onChange={handleInputChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg form-field focus-indicator"
                 placeholder="Enter Your Password"
               />
             </div>
@@ -121,15 +121,16 @@ const CitizenLogin = () => {
             <button
               type="submit"
               disabled={isLoading}
-              className={`w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white ${
+              className={`w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white btn-animate focus-indicator ${
                 isLoading
                   ? 'bg-gray-400 cursor-not-allowed'
-                  : 'bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500'
+                  : 'bg-green-600 hover:bg-green-700'
               }`}
+              onClick={playClickSound}
             >
               {isLoading ? (
                 <div className="flex items-center">
-                  <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
+                  <svg className="spinner -ml-1 mr-3 h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
                     <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" className="opacity-25"></circle>
                     <path fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" className="opacity-75"></path>
                   </svg>
@@ -144,14 +145,26 @@ const CitizenLogin = () => {
           <div className="mt-6 text-center">
             <p className="text-sm text-gray-600">
               Don't have an account?{' '}
-              <button onClick={() => navigate('/citizen-signup')} className="text-blue-600 hover:text-blue-500 font-medium">
+              <button 
+                onClick={() => {
+                  playClickSound();
+                  navigate('/citizen-signup');
+                }} 
+                className="text-blue-600 hover:text-blue-500 font-medium btn-animate"
+              >
                 Register here
               </button>
             </p>
           </div>
 
           <div className="mt-4 text-center">
-            <button onClick={() => navigate('/')} className="text-sm text-gray-500 hover:text-gray-700 flex items-center justify-center">
+            <button 
+              onClick={() => {
+                playClickSound();
+                navigate('/');
+              }} 
+              className="text-sm text-gray-500 hover:text-gray-700 flex items-center justify-center btn-animate focus-indicator"
+            >
               <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
               </svg>
@@ -161,7 +174,7 @@ const CitizenLogin = () => {
         </div>
 
         {/* Demo Credentials */}
-        <div className="bg-blue-50 rounded-lg p-4 border border-blue-200">
+        <div className="bg-blue-50 rounded-lg p-4 border border-blue-200 animate-fade-in">
           <h4 className="text-sm font-medium text-blue-900 mb-2">Demo Credentials</h4>
           <div className="text-xs text-blue-700 space-y-1">
             <p>📧 Email: admin@justice.gov.in</p>
