@@ -27,9 +27,10 @@ const AdminLogin = () => {
     e.preventDefault();
     setIsLoading(true);
     setError('');
+    playClickSound();
 
     if (!formData.email || !formData.password) {
-      setError('Please fill in all fields');
+      showErrorToast('Please fill in all fields');
       setIsLoading(false);
       return;
     }
@@ -38,14 +39,14 @@ const AdminLogin = () => {
       const result = await login(formData.email, formData.password, 'admin');
       
       if (result.success) {
-        alert('Login Successful!');
+        showLoginSuccessToast('admin');
         navigate('/admin-dashboard', { replace: true });
       } else {
-        setError(result.error || 'Login failed');
+        showErrorToast(result.error || 'Login failed');
       }
     } catch (err) {
       console.error('Login error:', err);
-      setError('An unexpected error occurred. Please try again.');
+      showErrorToast('An unexpected error occurred. Please try again.');
     } finally {
       setIsLoading(false);
     }
