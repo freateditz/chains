@@ -98,15 +98,15 @@ const Homepage = () => {
           
           {/* SECTION 2: Main Services (Left - 2/3 width) */}
           <div className="lg:col-span-3">
-            <div className="bg-white rounded-xl shadow-lg p-8 mb-8">
+            <div className="bg-white rounded-xl shadow-lg p-8 mb-8 animate-slide-in-left">
               <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center border-b-2 border-blue-900 pb-4">
                 Online Services
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 
                 {/* File FIR Service */}
-                <Link to="/file-fir" className="group">
-                  <div className="bg-green-50 border-2 border-green-200 rounded-xl p-8 hover:shadow-lg transition-all duration-200 transform group-hover:-translate-y-1">
+                <Link to="/file-fir" className="group" onClick={playClickSound}>
+                  <div className="service-card bg-green-50 border-2 border-green-200 rounded-xl p-8">
                     <div className="flex items-center mb-4">
                       <div className="text-4xl mr-4">📋</div>
                       <h3 className="text-xl font-bold text-gray-900">File FIR Online</h3>
@@ -118,8 +118,8 @@ const Homepage = () => {
                 </Link>
 
                 {/* Track Status Service */}
-                <Link to="/status" className="group">
-                  <div className="bg-blue-50 border-2 border-blue-200 rounded-xl p-8 hover:shadow-lg transition-all duration-200 transform group-hover:-translate-y-1">
+                <Link to="/status" className="group" onClick={playClickSound}>
+                  <div className="service-card bg-blue-50 border-2 border-blue-200 rounded-xl p-8">
                     <div className="flex items-center mb-4">
                       <div className="text-4xl mr-4">🔍</div>
                       <h3 className="text-xl font-bold text-gray-900">Track FIR Status</h3>
@@ -131,8 +131,8 @@ const Homepage = () => {
                 </Link>
 
                 {/* Download Forms Service */}
-                <Link to="/resources" className="group">
-                  <div className="bg-yellow-50 border-2 border-yellow-200 rounded-xl p-8 hover:shadow-lg transition-all duration-200 transform group-hover:-translate-y-1">
+                <Link to="/resources" className="group" onClick={playClickSound}>
+                  <div className="service-card bg-yellow-50 border-2 border-yellow-200 rounded-xl p-8">
                     <div className="flex items-center mb-4">
                       <div className="text-4xl mr-4">📄</div>
                       <h3 className="text-xl font-bold text-gray-900">Download Forms</h3>
@@ -144,8 +144,8 @@ const Homepage = () => {
                 </Link>
 
                 {/* Contact Police Service */}
-                <Link to="/contact" className="group">
-                  <div className="bg-red-50 border-2 border-red-200 rounded-xl p-8 hover:shadow-lg transition-all duration-200 transform group-hover:-translate-y-1">
+                <Link to="/contact" className="group" onClick={playClickSound}>
+                  <div className="service-card bg-red-50 border-2 border-red-200 rounded-xl p-8">
                     <div className="flex items-center mb-4">
                       <div className="text-4xl mr-4">🚔</div>
                       <h3 className="text-xl font-bold text-gray-900">Contact Police</h3>
