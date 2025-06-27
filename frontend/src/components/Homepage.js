@@ -75,13 +75,13 @@ const Homepage = () => {
     <div className="min-h-screen bg-gray-50 animate-page-enter">
       
       {/* SECTION 1: Hero & Main Actions */}
-      <div className="bg-white border-b-4 border-orange-500 hero-enhanced relative overflow-hidden">
+      <div className="bg-white border-b-4 border-orange-500 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 relative z-10">
           <div className="text-center mb-12 hero-float">
-            <h1 className="text-4xl font-bold text-white mb-4 text-gradient">
+            <h1 className="text-4xl font-bold text-blue-900 mb-4">
               Online First Information Report (FIR) System
             </h1>
-            <p className="text-lg text-blue-100 max-w-4xl mx-auto leading-relaxed">
+            <p className="text-lg text-gray-700 max-w-4xl mx-auto leading-relaxed">
               A secure and transparent platform for filing FIRs online. Submit your complaint 24x7 
               and track its progress in real-time through the official government portal.
             </p>
