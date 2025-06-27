@@ -111,9 +111,9 @@ const Homepage = () => {
                 
                 {/* File FIR Service */}
                 <Link to="/file-fir" className="group" onClick={playClickSound}>
-                  <div className="service-card bg-green-50 border-2 border-green-200 rounded-xl p-8">
+                  <div className="service-card-enhanced bg-green-50 border-2 border-green-200 rounded-xl p-8">
                     <div className="flex items-center mb-4">
-                      <div className="text-4xl mr-4">📋</div>
+                      <div className="service-icon text-4xl mr-4">📋</div>
                       <h3 className="text-xl font-bold text-gray-900">File FIR Online</h3>
                     </div>
                     <p className="text-gray-700 leading-relaxed">
@@ -124,9 +124,9 @@ const Homepage = () => {
 
                 {/* Track Status Service */}
                 <Link to="/status" className="group" onClick={playClickSound}>
-                  <div className="service-card bg-blue-50 border-2 border-blue-200 rounded-xl p-8">
+                  <div className="service-card-enhanced bg-blue-50 border-2 border-blue-200 rounded-xl p-8">
                     <div className="flex items-center mb-4">
-                      <div className="text-4xl mr-4">🔍</div>
+                      <div className="service-icon text-4xl mr-4">🔍</div>
                       <h3 className="text-xl font-bold text-gray-900">Track FIR Status</h3>
                     </div>
                     <p className="text-gray-700 leading-relaxed">
@@ -137,9 +137,9 @@ const Homepage = () => {
 
                 {/* Download Forms Service */}
                 <Link to="/resources" className="group" onClick={playClickSound}>
-                  <div className="service-card bg-yellow-50 border-2 border-yellow-200 rounded-xl p-8">
+                  <div className="service-card-enhanced bg-yellow-50 border-2 border-yellow-200 rounded-xl p-8">
                     <div className="flex items-center mb-4">
-                      <div className="text-4xl mr-4">📄</div>
+                      <div className="service-icon text-4xl mr-4">📄</div>
                       <h3 className="text-xl font-bold text-gray-900">Download Forms</h3>
                     </div>
                     <p className="text-gray-700 leading-relaxed">
@@ -150,9 +150,9 @@ const Homepage = () => {
 
                 {/* Contact Police Service */}
                 <Link to="/contact" className="group" onClick={playClickSound}>
-                  <div className="service-card bg-red-50 border-2 border-red-200 rounded-xl p-8">
+                  <div className="service-card-enhanced bg-red-50 border-2 border-red-200 rounded-xl p-8">
                     <div className="flex items-center mb-4">
-                      <div className="text-4xl mr-4">🚔</div>
+                      <div className="service-icon text-4xl mr-4">🚔</div>
                       <h3 className="text-xl font-bold text-gray-900">Contact Police</h3>
                     </div>
                     <p className="text-gray-700 leading-relaxed">
