@@ -165,8 +165,8 @@ const Resources = () => {
   ];
 
   const handleDownload = (fileName) => {
-    // Simulate file download
-    alert(`Downloading ${fileName}...`);
+    playClickSound();
+    showDownloadToast(fileName);
   };
 
   return (
