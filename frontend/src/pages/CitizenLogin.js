@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
+import { showLoginSuccessToast, showErrorToast } from '../utils/toastManager';
+import { playClickSound } from '../utils/soundManager';
 
 const CitizenLogin = () => {
   const [formData, setFormData] = useState({
