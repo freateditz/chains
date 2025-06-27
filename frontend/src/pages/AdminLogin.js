@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
+import { showLoginSuccessToast, showErrorToast } from '../utils/toastManager';
+import { playClickSound } from '../utils/soundManager';
 
 const AdminLogin = () => {
   const [formData, setFormData] = useState({
