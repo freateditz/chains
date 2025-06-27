@@ -213,7 +213,7 @@ const Contact = () => {
           </div>
 
           {/* Contact Form */}
-          <div className="lg:col-span-2">
+          <div className="lg:col-span-2 animate-slide-in-right">
             <div className="bg-white rounded-2xl shadow-lg p-8">
               <h2 className="text-2xl font-bold text-gray-900 mb-6">Send us a Message</h2>
               <form onSubmit={handleSubmit} className="space-y-6">
@@ -225,7 +225,7 @@ const Contact = () => {
                       name="name"
                       value={formData.name}
                       onChange={handleInputChange}
-                      className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full p-3 border border-gray-300 rounded-lg form-field focus-indicator"
                       placeholder="Enter your full name"
                       required
                     />
@@ -237,7 +237,7 @@ const Contact = () => {
                       name="email"
                       value={formData.email}
                       onChange={handleInputChange}
-                      className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full p-3 border border-gray-300 rounded-lg form-field focus-indicator"
                       placeholder="Enter your email"
                       required
                     />
@@ -249,7 +249,7 @@ const Contact = () => {
                       name="phone"
                       value={formData.phone}
                       onChange={handleInputChange}
-                      className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full p-3 border border-gray-300 rounded-lg form-field focus-indicator"
                       placeholder="Enter 10-digit phone number"
                       maxLength="10"
                       pattern="[0-9]{10}"
@@ -261,7 +261,7 @@ const Contact = () => {
                       name="category"
                       value={formData.category}
                       onChange={handleInputChange}
-                      className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full p-3 border border-gray-300 rounded-lg form-field focus-indicator"
                       required
                     >
                       <option value="">Select Category</option>
@@ -279,7 +279,7 @@ const Contact = () => {
                     name="subject"
                     value={formData.subject}
                     onChange={handleInputChange}
-                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full p-3 border border-gray-300 rounded-lg form-field focus-indicator"
                     placeholder="Brief description of your inquiry"
                     required
                   />
@@ -292,7 +292,7 @@ const Contact = () => {
                     value={formData.message}
                     onChange={handleInputChange}
                     rows="6"
-                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full p-3 border border-gray-300 rounded-lg form-field focus-indicator"
                     placeholder="Please provide detailed information about your inquiry or issue..."
                     required
                   ></textarea>
@@ -304,7 +304,7 @@ const Contact = () => {
                     name="urgent"
                     checked={formData.urgent}
                     onChange={handleInputChange}
-                    className="h-4 w-4 text-red-600 focus:ring-red-500 border-gray-300 rounded"
+                    className="h-4 w-4 text-red-600 focus:ring-red-500 border-gray-300 rounded focus-indicator"
                   />
                   <label className="ml-2 block text-sm text-gray-700">
                     This is an urgent matter requiring immediate attention
