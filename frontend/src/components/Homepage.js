@@ -40,12 +40,12 @@ const Homepage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 animate-page-enter">
       
       {/* SECTION 1: Hero & Main Actions */}
       <div className="bg-white border-b-4 border-orange-500">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <div className="text-center mb-12">
+          <div className="text-center mb-12 animate-hero-enter">
             <h1 className="text-4xl font-bold text-blue-900 mb-4">
               Online First Information Report (FIR) System
             </h1>
@@ -56,10 +56,11 @@ const Homepage = () => {
           </div>
           
           {/* Main Action Buttons */}
-          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16">
+          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16 animate-stagger-1">
             <Link 
               to="/file-fir"
-              className="bg-green-600 hover:bg-green-700 text-white px-12 py-6 rounded-lg font-bold text-xl shadow-lg transition-all duration-200 flex items-center transform hover:scale-105"
+              className="bg-green-600 hover:bg-green-700 text-white px-12 py-6 rounded-lg font-bold text-xl shadow-lg btn-animate hover-lift focus-indicator flex items-center"
+              onClick={playClickSound}
             >
               <svg className="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
@@ -68,7 +69,8 @@ const Homepage = () => {
             </Link>
             <Link 
               to="/status"
-              className="bg-blue-600 hover:bg-blue-700 text-white px-12 py-6 rounded-lg font-bold text-xl shadow-lg transition-all duration-200 flex items-center transform hover:scale-105"
+              className="bg-blue-600 hover:bg-blue-700 text-white px-12 py-6 rounded-lg font-bold text-xl shadow-lg btn-animate hover-lift focus-indicator flex items-center"
+              onClick={playClickSound}
             >
               <svg className="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -78,10 +80,10 @@ const Homepage = () => {
           </div>
 
           {/* Statistics Bar */}
-          <div className="bg-blue-900 text-white rounded-xl p-8 shadow-lg">
+          <div className="bg-blue-900 text-white rounded-xl p-8 shadow-lg animate-stagger-2">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               {quickStats.map((stat, index) => (
-                <div key={index} className="text-center">
+                <div key={index} className={`text-center counter-animate animate-stagger-${index + 1}`}>
                   <div className="text-3xl font-bold text-orange-400 mb-2">{stat.value}</div>
                   <div className="text-sm text-blue-100">{stat.label}</div>
                 </div>
