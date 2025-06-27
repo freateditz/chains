@@ -116,8 +116,7 @@ const Homepage = () => {
           </div>
 
           {/* Statistics Bar */}
-          <div className="bg-slate-900 text-white rounded-xl p-8 shadow-lg stagger-enhanced-2 relative overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-r from-blue-900/20 to-green-900/20"></div>
+          <div className="bg-blue-900 text-white rounded-xl p-8 shadow-lg stagger-enhanced-2 relative overflow-hidden">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 relative z-10">
               {quickStats.map((stat, index) => (
                 <div key={index} className={`text-center stat-counter stagger-enhanced-${index + 1}`} style={{'--delay': `${index * 0.2}s`}}>
