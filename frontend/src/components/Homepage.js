@@ -121,7 +121,9 @@ const Homepage = () => {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 relative z-10">
               {quickStats.map((stat, index) => (
                 <div key={index} className={`text-center stat-counter stagger-enhanced-${index + 1}`} style={{'--delay': `${index * 0.2}s`}}>
-                  <div className="stat-number text-3xl font-bold text-orange-400 mb-2">{stat.value}</div>
+                  <div className="stat-number text-3xl font-bold text-orange-400 mb-2">
+                    {animatedStats[index] || '0'}
+                  </div>
                   <div className="text-sm text-blue-100">{stat.label}</div>
                 </div>
               ))}
