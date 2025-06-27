@@ -62,10 +62,10 @@ const Contact = () => {
 
   if (submitted) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center py-12">
-        <div className="max-w-md mx-auto bg-white rounded-2xl shadow-lg p-8 text-center">
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center py-12 animate-page-enter">
+        <div className="max-w-md mx-auto bg-white rounded-2xl shadow-lg p-8 text-center success-animation">
           <div className="bg-green-100 rounded-full p-3 w-16 h-16 mx-auto mb-6">
-            <svg className="h-10 w-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="h-10 w-10 text-green-600 checkmark-animate" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
           </div>
@@ -78,6 +78,7 @@ const Contact = () => {
           </p>
           <button
             onClick={() => {
+              playClickSound();
               setSubmitted(false);
               setFormData({
                 name: '',
@@ -89,7 +90,7 @@ const Contact = () => {
                 urgent: false
               });
             }}
-            className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors duration-200"
+            className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 btn-animate focus-indicator"
           >
             Send Another Message
           </button>
