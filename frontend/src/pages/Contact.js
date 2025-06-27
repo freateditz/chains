@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { showContactSuccessToast } from '../utils/toastManager';
+import { playClickSound } from '../utils/soundManager';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
