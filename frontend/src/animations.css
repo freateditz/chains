@@ -1,0 +1,395 @@
+/* ===========================================
+   JUSTICECHAIN - OFFICIAL ANIMATIONS
+   Professional & Subtle Animations for Government Portal
+   =========================================== */
+
+/* FADE IN ANIMATIONS */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* SLIDE ANIMATIONS */
+@keyframes slideInUp {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInDown {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+/* SCALE ANIMATIONS */
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes scaleInCenter {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* PULSE AND BOUNCE */
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-10px);
+  }
+  60% {
+    transform: translateY(-5px);
+  }
+}
+
+/* LOADING ANIMATIONS */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+/* ANIMATION CLASSES */
+
+/* Page Entry Animations */
+.animate-page-enter {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.animate-hero-enter {
+  animation: fadeInDown 0.8s ease-out forwards;
+}
+
+.animate-slide-in-left {
+  animation: fadeInLeft 0.6s ease-out forwards;
+}
+
+.animate-slide-in-right {
+  animation: fadeInRight 0.6s ease-out forwards;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+.animate-scale-in {
+  animation: scaleInCenter 0.4s ease-out forwards;
+}
+
+/* Staggered Animations */
+.animate-stagger-1 {
+  animation: fadeInUp 0.6s ease-out 0.1s forwards;
+  opacity: 0;
+}
+
+.animate-stagger-2 {
+  animation: fadeInUp 0.6s ease-out 0.2s forwards;
+  opacity: 0;
+}
+
+.animate-stagger-3 {
+  animation: fadeInUp 0.6s ease-out 0.3s forwards;
+  opacity: 0;
+}
+
+.animate-stagger-4 {
+  animation: fadeInUp 0.6s ease-out 0.4s forwards;
+  opacity: 0;
+}
+
+/* Hover Effects */
+.hover-lift {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.hover-glow {
+  transition: box-shadow 0.3s ease;
+}
+
+.hover-glow:hover {
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
+}
+
+.hover-scale {
+  transition: transform 0.2s ease;
+}
+
+.hover-scale:hover {
+  transform: scale(1.02);
+}
+
+/* Button Animations */
+.btn-animate {
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-animate:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.btn-animate:hover:before {
+  left: 100%;
+}
+
+.btn-animate:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.btn-animate:active {
+  transform: translateY(0);
+}
+
+/* Form Field Animations */
+.form-field {
+  transition: all 0.2s ease;
+}
+
+.form-field:focus {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
+}
+
+/* Loading States */
+.loading-dots {
+  display: inline-block;
+}
+
+.loading-dots:after {
+  content: '';
+  animation: typing 1.5s infinite;
+}
+
+.spinner {
+  animation: spin 1s linear infinite;
+}
+
+/* Toast Animations */
+.toast-enter {
+  animation: slideInDown 0.3s ease-out forwards;
+}
+
+.toast-exit {
+  animation: fadeInUp 0.3s ease-in forwards reverse;
+}
+
+/* Service Card Animations */
+.service-card {
+  transition: all 0.3s ease;
+  transform-origin: center center;
+}
+
+.service-card:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* Statistics Counter Animation */
+.counter-animate {
+  animation: scaleIn 0.8s ease-out forwards;
+}
+
+/* Tab Switching Animation */
+.tab-content {
+  animation: fadeIn 0.4s ease-out forwards;
+}
+
+.tab-button {
+  transition: all 0.2s ease;
+}
+
+.tab-button:hover {
+  transform: translateY(-1px);
+}
+
+/* Form Success Animation */
+.success-animation {
+  animation: scaleIn 0.5s ease-out forwards, pulse 2s ease-in-out 0.5s infinite;
+}
+
+/* Card Hover Effects */
+.card-interactive {
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.card-interactive:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Emergency Contact Pulse */
+.emergency-pulse {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+/* Responsive Animations */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Focus Indicators for Accessibility */
+.focus-indicator:focus {
+  outline: 2px solid #3B82F6;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Page transition wrapper */
+.page-wrapper {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+/* Loading overlay */
+.loading-overlay {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(2px);
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+/* Success checkmark animation */
+@keyframes checkmark {
+  0% {
+    stroke-dashoffset: 100;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+.checkmark-animate {
+  stroke-dasharray: 100;
+  animation: checkmark 0.6s ease-out forwards;
+}
+
+/* Subtle border animations */
+.border-animate {
+  position: relative;
+  overflow: hidden;
+}
+
+.border-animate::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #3B82F6, transparent);
+  animation: slideInRight 2s ease-in-out infinite;
+}
+
+@keyframes slideInRight {
+  0% { left: -100%; }
+  50% { left: 100%; }
+  100% { left: -100%; }
+}
