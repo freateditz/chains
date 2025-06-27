@@ -179,10 +179,10 @@ const Homepage = () => {
           </div>
 
           {/* SECTION 3: Sidebar (Right - 1/3 width) */}
-          <div className="lg:col-span-1 space-y-8">
+          <div className="lg:col-span-1 space-y-8 animate-slide-in-right">
             
             {/* Police Admin Login */}
-            <div className="bg-slate-800 text-white rounded-xl p-6 shadow-lg">
+            <div className="bg-slate-800 text-white rounded-xl p-6 shadow-lg card-interactive">
               <h3 className="text-lg font-bold mb-4 flex items-center">
                 <svg className="w-5 h-5 mr-2 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
@@ -191,8 +191,11 @@ const Homepage = () => {
               </h3>
               {!showAdminLogin ? (
                 <button
-                  onClick={() => setShowAdminLogin(true)}
-                  className="w-full bg-orange-500 hover:bg-orange-600 text-white py-3 px-4 rounded-lg font-semibold transition-colors duration-200 flex items-center justify-center"
+                  onClick={() => {
+                    playClickSound();
+                    setShowAdminLogin(true);
+                  }}
+                  className="w-full bg-orange-500 hover:bg-orange-600 text-white py-3 px-4 rounded-lg font-semibold btn-animate focus-indicator flex items-center justify-center"
                 >
                   <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
@@ -200,14 +203,14 @@ const Homepage = () => {
                   Admin Access
                 </button>
               ) : (
-                <form onSubmit={handleAdminLogin} className="space-y-4">
+                <form onSubmit={handleAdminLogin} className="space-y-4 animate-scale-in">
                   <div>
                     <input
                       type="text"
                       placeholder="Officer ID"
                       value={adminCredentials.username}
                       onChange={(e) => setAdminCredentials({...adminCredentials, username: e.target.value})}
-                      className="w-full p-3 bg-slate-700 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:ring-2 focus:ring-orange-400 focus:border-transparent"
+                      className="w-full p-3 bg-slate-700 border border-slate-600 rounded-lg text-white placeholder-slate-400 form-field focus-indicator"
                     />
                   </div>
                   <div>
@@ -216,20 +219,24 @@ const Homepage = () => {
                       placeholder="Password"
                       value={adminCredentials.password}
                       onChange={(e) => setAdminCredentials({...adminCredentials, password: e.target.value})}
-                      className="w-full p-3 bg-slate-700 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:ring-2 focus:ring-orange-400 focus:border-transparent"
+                      className="w-full p-3 bg-slate-700 border border-slate-600 rounded-lg text-white placeholder-slate-400 form-field focus-indicator"
                     />
                   </div>
                   <div className="flex space-x-2">
                     <button
                       type="submit"
-                      className="flex-1 bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded-lg font-semibold transition-colors duration-200"
+                      className="flex-1 bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded-lg font-semibold btn-animate focus-indicator"
+                      onClick={playClickSound}
                     >
                       Login
                     </button>
                     <button
                       type="button"
-                      onClick={() => setShowAdminLogin(false)}
-                      className="flex-1 bg-gray-600 hover:bg-gray-700 text-white py-2 px-4 rounded-lg font-semibold transition-colors duration-200"
+                      onClick={() => {
+                        playClickSound();
+                        setShowAdminLogin(false);
+                      }}
+                      className="flex-1 bg-gray-600 hover:bg-gray-700 text-white py-2 px-4 rounded-lg font-semibold btn-animate focus-indicator"
                     >
                       Cancel
                     </button>
@@ -242,27 +249,27 @@ const Homepage = () => {
             </div>
 
             {/* Emergency Numbers */}
-            <div className="bg-red-50 border-2 border-red-200 rounded-xl p-6 shadow-sm">
+            <div className="bg-red-50 border-2 border-red-200 rounded-xl p-6 shadow-sm card-interactive">
               <h3 className="text-lg font-bold text-red-900 mb-4 flex items-center">
-                <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 mr-2 emergency-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
                 </svg>
                 Emergency Numbers
               </h3>
               <div className="space-y-3">
-                <div className="flex justify-between items-center py-2 border-b border-red-200">
+                <div className="flex justify-between items-center py-2 border-b border-red-200 hover-lift">
                   <span className="text-red-800 font-medium">Police Emergency</span>
                   <span className="font-bold text-red-900 text-xl">100</span>
                 </div>
-                <div className="flex justify-between items-center py-2 border-b border-red-200">
+                <div className="flex justify-between items-center py-2 border-b border-red-200 hover-lift">
                   <span className="text-red-800 font-medium">Fire Emergency</span>
                   <span className="font-bold text-red-900 text-xl">101</span>
                 </div>
-                <div className="flex justify-between items-center py-2 border-b border-red-200">
+                <div className="flex justify-between items-center py-2 border-b border-red-200 hover-lift">
                   <span className="text-red-800 font-medium">Medical Emergency</span>
                   <span className="font-bold text-red-900 text-xl">102</span>
                 </div>
-                <div className="flex justify-between items-center py-2">
+                <div className="flex justify-between items-center py-2 hover-lift">
                   <span className="text-red-800 font-medium">Women Helpline</span>
                   <span className="font-bold text-red-900 text-xl">1091</span>
                 </div>
