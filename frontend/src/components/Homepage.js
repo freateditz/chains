@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { showAdminToast } from '../utils/toastManager';
+import { playClickSound } from '../utils/soundManager';
 
 const Homepage = () => {
   const [showAdminLogin, setShowAdminLogin] = useState(false);
