@@ -251,7 +251,7 @@ const FileFIR = () => {
       console.log("AI Raw Response:", airesponse.data);
 
       const priority = airesponse.data.priority.toLowerCase();
-       console.log("Parsed priority:", priority);
+      console.log("Parsed priority:", priority);
 
       if (priority === 'high') {
         severity = 3;
@@ -259,9 +259,17 @@ const FileFIR = () => {
       } else if (priority === 'medium') {
         severity = 2;
         urgencyLevel = 'medium';
+      } else {
+        severity = 1;
+        urgencyLevel = 'low';
       }
+      
+      console.log("Final severity calculated:", severity);
     } catch(AIerror){
       console.log("AI Response Error:", AIerror.message);
+      severity = 1;
+      urgencyLevel = 'low';
+      console.log("Using default severity due to AI error:", severity);
     }
 
     const firDataWithUser = {
