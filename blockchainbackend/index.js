@@ -38,22 +38,34 @@ app.post('/api/uploadFIR', async (req, res) => {
 
         const firData = req.body;
 
-        //Prioirty by AI
+        // Use severity from frontend (already calculated by AI)
+        let severity = firData.severity || 1;
+        console.log('Using severity from frontend:', severity);
 
-        let severity = 1;
-        try{
-            const airesponse = await axios.post(`${AI_SERVICE_URL}/classify`,
-                {incidentDescription: firData.incidentDescription || firData.description || ''}
-            )
+        // If severity is not provided by frontend, calculate it using AI
+        if (!firData.severity) {
+            console.log('No severity provided, calculating using AI...');
+            try{
+                const airesponse = await axios.post(`${AI_SERVICE_URL}/classify`,
+                    {incidentDescription: firData.incidentDescription || firData.description || ''}
+                )
 
-            const priority = airesponse.data.priority.toLowerCase();
+                const priority = airesponse.data.priority.toLowerCase();
+                console.log('AI Response Priority:', priority);
 
-            if(priority === "high") severity = 3;
-            else if(priority === 'medium') severity = 2;
-            else severity = 1; 
-        } catch(AIerror){
-            console.warn("classification failed , setting severity to 1");
+                if(priority === "high") severity = 3;
+                else if(priority === 'medium') severity = 2;
+                else severity = 1; 
+                
+                console.log('Calculated severity from AI:', severity);
+            } catch(AIerror){
+                console.warn("AI classification failed, setting severity to 1");
+                console.error('AI Error:', AIerror.message);
+                severity = 1;
+            }
         }
+
+        console.log('Final severity for blockchain:', severity);
 
         // Upload FIR to Pinata
         const pinataUrl = `https://api.pinata.cloud/pinning/pinJSONToIPFS`;
@@ -67,9 +79,10 @@ app.post('/api/uploadFIR', async (req, res) => {
         });
 
         const ipfsHash = pinataResponse.data.IpfsHash;
-        
+        console.log('IPFS Hash:', ipfsHash);
 
         // Save to Blockchain
+        console.log('Creating blockchain transaction with severity:', severity);
         const tx = await contract.createFIR(
             firData.incidentType || firData.title || 'Untitled FIR',
             firData.incidentDescription || firData.description || 'No description',
@@ -80,7 +93,7 @@ app.post('/api/uploadFIR', async (req, res) => {
         console.log('Transaction sent:', tx.hash);
 
         await tx.wait();
-        console.log('Transaction mined');
+        console.log('Transaction mined with severity:', severity);
 
         // Send response
         res.json({
@@ -88,6 +101,7 @@ app.post('/api/uploadFIR', async (req, res) => {
             message: 'FIR successfully uploaded and saved on blockchain',
             ipfsHash,
             txHash: tx.hash,
+            severity: severity, // Include severity in response
         });
 
     } catch (error) {
