@@ -42,7 +42,7 @@ app.post('/api/uploadFIR', async (req, res) => {
 
         let severity = 1;
         try{
-            const airesponse = await axios.post('http://localhost:5050/classify',
+            const airesponse = await axios.post(`${AI_SERVICE_URL}/classify`,
                 {incidentDescription: firData.incidentDescription || firData.description || ''}
             )
 
