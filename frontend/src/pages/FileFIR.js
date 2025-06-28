@@ -245,7 +245,7 @@ const FileFIR = () => {
 
 
     try {
-      const airesponse = await axios.post('http://127.0.0.1:5050/classify',
+      const airesponse = await axios.post(`${AI_SERVICE_URL}/classify`,
         {incidentDescription : formData.incidentDescription || '' }
       )
       console.log("AI Raw Response:", airesponse.data);
