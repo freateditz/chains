@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000';
+
 const AdminSignup = () => {
   const [formData, setFormData] = useState({
     fullName: '',
@@ -74,7 +76,7 @@ const AdminSignup = () => {
     }
 
     try {
-      const res = await axios.post('http://localhost:5000/api/auth/admin/register', {
+      const res = await axios.post(`${BACKEND_URL}/api/auth/admin/register`, {
         fullName: formData.fullName,
         email: formData.email,
         phone: formData.phone,
@@ -224,5 +226,3 @@ const AdminSignup = () => {
 };
 
 export default AdminSignup;
-
-
