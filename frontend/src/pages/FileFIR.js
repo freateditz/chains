@@ -305,9 +305,10 @@ const FileFIR = () => {
       }
 
       const result = await response.json();
-      alert("FIR SUBMITTED")
+      console.log("Blockchain response:", result);
 
       if (result.success) {
+        alert(`✅ FIR SUBMITTED SUCCESSFULLY!\nSeverity: ${severity}\nTransaction Hash: ${result.txHash}\nIPFS Hash: ${result.ipfsHash}`);
 
         // Reset form after success:
         setFormData({
