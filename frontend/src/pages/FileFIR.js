@@ -4,6 +4,9 @@ import { FIRStorage } from '../utils/firStorage';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
+const BLOCKCHAIN_BACKEND_URL = process.env.REACT_APP_BLOCKCHAIN_BACKEND_URL || 'http://localhost:4000';
+const AI_SERVICE_URL = process.env.REACT_APP_AI_SERVICE_URL || 'http://localhost:5050';
+
 const FileFIR = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
