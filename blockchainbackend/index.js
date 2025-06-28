@@ -41,8 +41,8 @@ app.post('/api/uploadFIR', async (req, res) => {
 
         let severity = 1;
         try{
-            const airesponse = await axios.post('http://localhost:6000/classify',
-                {description: firData.description || ''}
+            const airesponse = await axios.post('http://localhost:5050/classify',
+                {incidentDescription: firData.incidentDescription || firData.description || ''}
             )
 
             const priority = airesponse.data.priority.toLowerCase();
