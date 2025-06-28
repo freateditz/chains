@@ -1,0 +1,69 @@
+services:
+  # Frontend - Static Site
+  - type: web
+    name: justicechain-frontend
+    env: static
+    buildCommand: cd frontend && yarn install && yarn build
+    staticPublishPath: ./frontend/build
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    envVars:
+      - key: REACT_APP_BACKEND_URL
+        value: https://justicechain-backend.onrender.com
+      - key: REACT_APP_BLOCKCHAIN_BACKEND_URL
+        value: https://justicechain-blockchain.onrender.com
+      - key: REACT_APP_AI_SERVICE_URL
+        value: https://justicechain-ai.onrender.com
+
+  # Backend - Web Service (Node.js/Express + MongoDB)
+  - type: web
+    name: justicechain-backend
+    env: node
+    plan: starter
+    buildCommand: cd backend && npm install
+    startCommand: cd backend && npm start
+    envVars:
+      - key: MONGO_URL
+        value: mongodb+srv://JusticeChain:justicechain2829@cluster0.b6ko82w.mongodb.net/JusticeChain?retryWrites=true&w=majority&appName=Cluster0
+      - key: NFT_STORAGE_API_KEY
+        value: 53e149c4.4fda37d017644de79cb876e369c17ebd
+      - key: PORT
+        value: 5000
+
+  # Blockchain Backend - Web Service (Node.js/Express + Ethereum)
+  - type: web
+    name: justicechain-blockchain
+    env: node
+    plan: starter
+    buildCommand: cd blockchainbackend && npm install
+    startCommand: cd blockchainbackend && node index.js
+    envVars:
+      - key: PINATA_API_KEY
+        value: cc8fe42e71e224398f99
+      - key: PINATA_SECRET_API_KEY
+        value: af5c1aec92580ed58c924a2b7fa4c8cb4688c463071e35359510115e4394c210
+      - key: PRIVATE_KEY
+        value: a3a711b3ce1f86a929dcc4ed6412ba8b9631edeb261309e97d3fcbfcad35a0f5
+      - key: RPC_URL
+        value: https://sepolia.infura.io/v3/542f1eaa832d48f7b99c34caca33add7
+      - key: CONTRACT_ADDRESS
+        value: 0xF23133f1cd75C8AF6dEe73389BbB4C327697B82D
+      - key: AI_SERVICE_URL
+        value: https://justicechain-ai.onrender.com
+      - key: PORT
+        value: 4000
+
+  # AI Service - Web Service (Python/Flask + GROQ)
+  - type: web
+    name: justicechain-ai
+    env: python
+    plan: starter
+    buildCommand: cd AI && pip install -r requirements.txt
+    startCommand: cd AI && python connect.py
+    envVars:
+      - key: GROQ_API_KEY
+        value: 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
+      - key: PORT
+        value: 5050
