@@ -282,7 +282,7 @@ const FileFIR = () => {
 
 
     try {
-      const response = await fetch('http://localhost:4000/api/uploadFIR', {
+      const response = await fetch(`${BLOCKCHAIN_BACKEND_URL}/api/uploadFIR`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
