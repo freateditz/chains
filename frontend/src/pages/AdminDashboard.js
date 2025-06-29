@@ -13,6 +13,8 @@ const AdminDashboard = () => {
   const [stats, setStats] = useState({});
   const [selectedFIR, setSelectedFIR] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [dataSource, setDataSource] = useState('pinata');
   const navigate = useNavigate();
 
   useEffect(() => {
