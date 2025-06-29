@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthService } from '../utils/auth';
 import { FIRStorage } from '../utils/firStorage';
+import { PinataStorage } from '../utils/pinataStorage';
 
 const AdminDashboard = () => {
   const [user, setUser] = useState(null);
