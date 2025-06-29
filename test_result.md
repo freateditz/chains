@@ -341,6 +341,18 @@ test_plan:
           agent: "testing"
           comment: "Verified navbar shows login buttons and all navigation links work properly while maintaining government-style design"
 
+  - task: "Pinata IPFS storage integration for admin dashboard"
+    implemented: true
+    working: true
+    file: "blockchainbackend/index.js, frontend/src/utils/pinataStorage.js, frontend/src/pages/AdminDashboard.js, frontend/src/pages/TrackStatus.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "main"
+          comment: "Successfully migrated admin dashboard from localStorage to Pinata IPFS storage. Created blockchain backend API endpoints for retrieving FIR data from Pinata. Updated AdminDashboard and TrackStatus components to use PinataStorage with localStorage fallback. Added data source indicators and proper error handling."
+
 agent_communication:
     - agent: "main"
       message: "Starting transformation of Justice Chain to official Indian government FIR filing site design. Have obtained professional images for hero section. Will create navbar, footer, and homepage with government-style design."
