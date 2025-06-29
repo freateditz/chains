@@ -3,6 +3,7 @@ import sys
 import os
 from datetime import datetime
 import json
+import time
 
 class JusticeChainAPITester:
     def __init__(self, base_url="http://localhost:5000", blockchain_url="http://localhost:4000"):
@@ -154,43 +155,65 @@ def main():
     
     # Extract a FIR ID for further testing if available
     fir_id = None
+    fir_number = None
+    email = None
+    phone = None
+    id_number = None
+    
     if all_firs_success and 'data' in all_firs_data and all_firs_data['data']:
-        fir_id = all_firs_data['data'][0]['id']
-        print(f"Found FIR ID for testing: {fir_id}")
+        # Get the first FIR data
+        first_fir = all_firs_data['data'][0]
+        fir_id = first_fir.get('id')
+        fir_number = first_fir.get('firNumber')
+        email = first_fir.get('email')
+        phone = first_fir.get('phone')
+        id_number = first_fir.get('idNumber')
         
+        print(f"Found FIR data for testing:")
+        print(f"  - ID: {fir_id}")
+        print(f"  - FIR Number: {fir_number}")
+        print(f"  - Email: {email}")
+        print(f"  - Phone: {phone}")
+        print(f"  - ID Number: {id_number}")
+        
+        # Add a delay to avoid rate limiting
+        print("\nWaiting 2 seconds to avoid rate limiting...")
+        time.sleep(2)
+        
+        # Test search by FIR number if available
+        if fir_number:
+            print("\n===== Testing Search FIR by FIR Number =====")
+            tester.test_search_fir('fir', fir_number)
+            time.sleep(1)  # Add delay between requests
+            
+        # Test search by phone if available
+        if phone:
+            print("\n===== Testing Search FIR by Phone =====")
+            tester.test_search_fir('phone', phone)
+            time.sleep(1)  # Add delay between requests
+            
+        # Test search by email if available
+        if email:
+            print("\n===== Testing Search FIR by Email =====")
+            tester.test_search_fir('email', email)
+            time.sleep(1)  # Add delay between requests
+            
+        # Test search by ID number if available
+        if id_number:
+            print("\n===== Testing Search FIR by ID Number =====")
+            tester.test_search_fir('id', id_number)
+            time.sleep(1)  # Add delay between requests
+            
         # Test getting a specific FIR by ID
         print(f"\n===== Testing Get FIR by ID =====")
-        get_fir_success, get_fir_data = tester.test_get_fir_by_id(fir_id)
-        
-        # Extract search values for testing search functionality
-        if get_fir_success and 'data' in get_fir_data:
-            fir_data = get_fir_data['data']
-            
-            # Test search by FIR number
-            if 'firNumber' in fir_data:
-                print("\n===== Testing Search FIR by FIR Number =====")
-                tester.test_search_fir('fir', fir_data['firNumber'])
-                
-            # Test search by phone
-            if 'phone' in fir_data:
-                print("\n===== Testing Search FIR by Phone =====")
-                tester.test_search_fir('phone', fir_data['phone'])
-                
-            # Test search by email
-            if 'email' in fir_data:
-                print("\n===== Testing Search FIR by Email =====")
-                tester.test_search_fir('email', fir_data['email'])
-                
-            # Test search by ID number
-            if 'idNumber' in fir_data:
-                print("\n===== Testing Search FIR by ID Number =====")
-                tester.test_search_fir('id', fir_data['idNumber'])
+        tester.test_get_fir_by_id(fir_id)
     else:
         print("No FIRs found in blockchain/Pinata. Testing with sample values.")
         
         # Test search with sample values
         print("\n===== Testing Search FIR by FIR Number (Sample) =====")
         tester.test_search_fir('fir', 'FIR2025')
+        time.sleep(1)  # Add delay between requests
         
         # Test get FIR by ID with sample value
         print("\n===== Testing Get FIR by ID (Sample) =====")
@@ -203,6 +226,7 @@ def main():
         print("✅ All blockchain backend API endpoints are working correctly")
     else:
         print("❌ Some blockchain backend API tests failed")
+        print("Note: Some failures may be due to Pinata API rate limiting (429 errors)")
     
     return 0 if tester.tests_passed == tester.tests_run else 1
 
