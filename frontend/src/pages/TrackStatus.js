@@ -26,20 +26,39 @@ const TrackStatus = () => {
     setIsSearching(true);
     setHasSearched(false);
     
-    // Search in localStorage
-    setTimeout(() => {
-      try {
-        const result = FIRStorage.searchFIR(searchType, searchValue.trim());
-        setSearchResult(result);
-        setHasSearched(true);
-        setIsSearching(false);
-      } catch (error) {
-        console.error('Search error:', error);
-        setSearchResult(null);
-        setHasSearched(true);
-        setIsSearching(false);
+    try {
+      console.log('Searching FIR in Pinata storage...');
+      
+      // Try to search in Pinata first
+      const isBlockchainAvailable = await PinataStorage.isBlockchainAvailable();
+      let result = null;
+      
+      if (isBlockchainAvailable) {
+        console.log('Searching in Pinata storage...');
+        result = await PinataStorage.searchFIR(searchType, searchValue.trim());
+        setDataSource('pinata');
+      } else {
+        console.log('Blockchain backend not available, searching in localStorage...');
+        result = FIRStorage.searchFIR(searchType, searchValue.trim());
+        setDataSource('localStorage');
       }
-    }, 1500);
+      
+      console.log('Search result:', result);
+      setSearchResult(result);
+      setHasSearched(true);
+      
+    } catch (error) {
+      console.error('Error searching FIR:', error);
+      
+      // Fallback to localStorage search
+      console.log('Falling back to localStorage search...');
+      const result = FIRStorage.searchFIR(searchType, searchValue.trim());
+      setSearchResult(result);
+      setHasSearched(true);
+      setDataSource('localStorage');
+    } finally {
+      setIsSearching(false);
+    }
   };
 
   const getStatusColor = (status) => {
