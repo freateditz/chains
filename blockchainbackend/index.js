@@ -119,20 +119,20 @@ app.get('/api/getAllFIRs', async (req, res) => {
     try {
         console.log('Fetching all FIRs from blockchain...');
 
-        // Get FIR count from blockchain
-        const firCount = await contract.getFIRCount();
-        console.log('Total FIRs in blockchain:', firCount.toString());
+        // Get all FIRs directly from blockchain
+        const allFIRsFromBlockchain = await contract.getAllFIRs();
+        console.log('Total FIRs in blockchain:', allFIRsFromBlockchain.length);
 
         const allFIRs = [];
 
-        // Fetch each FIR from blockchain
-        for (let i = 0; i < firCount; i++) {
+        // Process each FIR from blockchain
+        for (let i = 0; i < allFIRsFromBlockchain.length; i++) {
             try {
-                const firData = await contract.getFIR(i);
-                console.log(`Fetching FIR ${i}:`, firData);
+                const firData = allFIRsFromBlockchain[i];
+                console.log(`Processing FIR ${i}:`, firData);
 
                 // Get IPFS data from Pinata
-                const ipfsHash = firData[3]; // ipfsHash is the 4th element
+                const ipfsHash = firData.ipfsHash || firData[4]; // ipfsHash
                 const pinataResponse = await axios.get(`https://gateway.pinata.cloud/ipfs/${ipfsHash}`);
                 
                 const ipfsData = pinataResponse.data;
@@ -140,23 +140,23 @@ app.get('/api/getAllFIRs', async (req, res) => {
 
                 // Combine blockchain and IPFS data
                 const combinedFIR = {
-                    id: i.toString(),
-                    firNumber: `FIR${new Date().getFullYear()}${String(i).padStart(6, '0')}`,
-                    blockchainId: i,
-                    title: firData[0],
-                    description: firData[1],
-                    severity: firData[2].toString(),
-                    ipfsHash: firData[3],
-                    timestamp: new Date().toISOString().split('T')[0],
-                    status: ipfsData.severity >= 3 ? 'Under Investigation' : 'FIR Registered',
-                    filedDate: new Date().toISOString().split('T')[0],
+                    id: (firData.id || firData[0]).toString(),
+                    firNumber: `FIR${new Date().getFullYear()}${String(firData.id || firData[0]).padStart(6, '0')}`,
+                    blockchainId: parseInt(firData.id || firData[0]),
+                    title: firData.title || firData[1],
+                    description: firData.description || firData[2],
+                    severity: (firData.severity || firData[3]).toString(),
+                    ipfsHash: firData.ipfsHash || firData[4],
+                    timestamp: new Date(parseInt(firData.timestamp || firData[5]) * 1000).toISOString().split('T')[0],
+                    status: (parseInt(firData.severity || firData[3]) >= 3) ? 'Under Investigation' : 'FIR Registered',
+                    filedDate: new Date(parseInt(firData.timestamp || firData[5]) * 1000).toISOString().split('T')[0],
                     lastUpdated: new Date().toISOString().split('T')[0],
                     // Include all IPFS data
                     ...ipfsData,
                     // Timeline for admin dashboard
                     timeline: [{
-                        date: new Date().toISOString().split('T')[0],
-                        status: ipfsData.severity >= 3 ? 'Under Investigation' : 'FIR Registered',
+                        date: new Date(parseInt(firData.timestamp || firData[5]) * 1000).toISOString().split('T')[0],
+                        status: (parseInt(firData.severity || firData[3]) >= 3) ? 'Under Investigation' : 'FIR Registered',
                         description: 'FIR registered and stored on blockchain',
                         officer: 'System Administrator'
                     }]
