@@ -11,7 +11,7 @@ class JusticeChainAPITester:
         self.tests_run = 0
         self.tests_passed = 0
 
-    def run_test(self, name, method, endpoint, expected_status, data=None, base="main"):
+    def run_test(self, name, method, endpoint, expected_status, data=None, base="main", expect_json=True):
         """Run a single API test"""
         url = f"{self.base_url}/{endpoint}" if base == "main" else f"{self.blockchain_url}/{endpoint}"
         headers = {'Content-Type': 'application/json'}
@@ -27,26 +27,34 @@ class JusticeChainAPITester:
                 response = requests.post(url, json=data, headers=headers)
 
             success = response.status_code == expected_status
+            
             if success:
                 self.tests_passed += 1
                 print(f"✅ Passed - Status: {response.status_code}")
-                response_data = response.json()
-                # Print a truncated version of the response if it's too large
-                if isinstance(response_data, dict) and 'data' in response_data and isinstance(response_data['data'], list) and len(response_data['data']) > 2:
-                    truncated_data = response_data.copy()
-                    truncated_data['data'] = [response_data['data'][0], "... truncated ..."]
-                    print(f"Response (truncated): {json.dumps(truncated_data, indent=2)}")
+                
+                if expect_json:
+                    response_data = response.json()
+                    # Print a truncated version of the response if it's too large
+                    if isinstance(response_data, dict) and 'data' in response_data and isinstance(response_data['data'], list) and len(response_data['data']) > 2:
+                        truncated_data = response_data.copy()
+                        truncated_data['data'] = [response_data['data'][0], "... truncated ..."]
+                        print(f"Response (truncated): {json.dumps(truncated_data, indent=2)}")
+                    else:
+                        print(f"Response: {json.dumps(response_data, indent=2)}")
                 else:
-                    print(f"Response: {json.dumps(response_data, indent=2)}")
+                    print(f"Response: {response.text}")
             else:
                 print(f"❌ Failed - Expected {expected_status}, got {response.status_code}")
                 print(f"Response: {response.text}")
 
-            return success, response.json() if response.status_code < 400 else {}
+            if expect_json:
+                return success, response.json() if response.status_code < 400 else {}
+            else:
+                return success, response.text if response.status_code < 400 else ""
 
         except Exception as e:
             print(f"❌ Failed - Error: {str(e)}")
-            return False, {}
+            return False, {} if expect_json else ""
 
     def test_citizen_login(self, email, password):
         """Test citizen login"""
@@ -75,7 +83,8 @@ class JusticeChainAPITester:
             "GET",
             "",
             200,
-            base="blockchain"
+            base="blockchain",
+            expect_json=False
         )
         
     def test_get_all_firs(self):
