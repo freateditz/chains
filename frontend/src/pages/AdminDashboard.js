@@ -26,15 +26,58 @@ const AdminDashboard = () => {
     }
     setUser(authUser);
 
-    // Load all FIRs
-    const firs = FIRStorage.getAllFIRs();
-    setAllFIRs(firs);
-    setFilteredFIRs(firs);
-
-    // Calculate statistics
-    const statistics = FIRStorage.getStatistics();
-    setStats(statistics);
+    // Load FIRs from Pinata storage
+    loadFIRData();
   }, [navigate]);
+
+  const loadFIRData = async () => {
+    setLoading(true);
+    try {
+      console.log('Loading FIR data from Pinata storage...');
+      
+      // Try to get data from Pinata first
+      const isBlockchainAvailable = await PinataStorage.isBlockchainAvailable();
+      
+      if (isBlockchainAvailable) {
+        console.log('Blockchain backend available, loading from Pinata...');
+        const firs = await PinataStorage.getAllFIRs();
+        const statistics = await PinataStorage.getStatistics();
+        
+        setAllFIRs(firs);
+        setFilteredFIRs(firs);
+        setStats(statistics);
+        setDataSource('pinata');
+        
+        console.log(`Loaded ${firs.length} FIRs from Pinata storage`);
+      } else {
+        console.log('Blockchain backend not available, falling back to localStorage...');
+        
+        // Fallback to localStorage
+        const firs = FIRStorage.getAllFIRs();
+        const statistics = FIRStorage.getStatistics();
+        
+        setAllFIRs(firs);
+        setFilteredFIRs(firs);
+        setStats(statistics);
+        setDataSource('localStorage');
+        
+        console.log(`Loaded ${firs.length} FIRs from localStorage`);
+      }
+    } catch (error) {
+      console.error('Error loading FIR data:', error);
+      
+      // Final fallback to localStorage
+      const firs = FIRStorage.getAllFIRs();
+      const statistics = FIRStorage.getStatistics();
+      
+      setAllFIRs(firs);
+      setFilteredFIRs(firs);
+      setStats(statistics);
+      setDataSource('localStorage');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
     // Filter FIRs based on status
