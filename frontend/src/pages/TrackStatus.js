@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { FIRStorage } from '../utils/firStorage';
+import { PinataStorage } from '../utils/pinataStorage';
 
 const TrackStatus = () => {
   const [searchType, setSearchType] = useState('fir');
