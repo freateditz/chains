@@ -409,8 +409,30 @@ const AdminDashboard = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Welcome Section */}
         <div className="mb-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">Admin Dashboard</h2>
-          <p className="text-gray-600">Manage FIR applications, track investigations, and update case status.</p>
+          <div className="flex items-center justify-between">
+            <div>
+              <h2 className="text-2xl font-bold text-gray-900 mb-2">Admin Dashboard</h2>
+              <p className="text-gray-600">Manage FIR applications, track investigations, and update case status.</p>
+            </div>
+            <div className="text-right">
+              <div className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${
+                dataSource === 'pinata' 
+                  ? 'bg-green-100 text-green-800' 
+                  : 'bg-yellow-100 text-yellow-800'
+              }`}>
+                <div className={`w-2 h-2 rounded-full mr-2 ${
+                  dataSource === 'pinata' ? 'bg-green-600' : 'bg-yellow-600'
+                }`}></div>
+                Data Source: {dataSource === 'pinata' ? 'Pinata IPFS' : 'Local Storage'}
+              </div>
+              <p className="text-xs text-gray-500 mt-1">
+                {dataSource === 'pinata' 
+                  ? 'Connected to blockchain storage' 
+                  : 'Using local fallback storage'
+                }
+              </p>
+            </div>
+          </div>
         </div>
 
         {/* Statistics Cards */}
