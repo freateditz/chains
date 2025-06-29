@@ -168,9 +168,21 @@ const TrackStatus = () => {
             <div className="bg-white rounded-2xl shadow-lg p-8">
               <div className="flex items-center justify-between mb-6">
                 <h2 className="text-2xl font-bold text-gray-900">Case Summary</h2>
-                <span className={`px-4 py-2 rounded-full text-sm font-medium ${getStatusColor(searchResult.status)}`}>
-                  {searchResult.status || 'Status Unknown'}
-                </span>
+                <div className="flex items-center space-x-4">
+                  <div className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${
+                    dataSource === 'pinata' 
+                      ? 'bg-green-100 text-green-800' 
+                      : 'bg-yellow-100 text-yellow-800'
+                  }`}>
+                    <div className={`w-2 h-2 rounded-full mr-2 ${
+                      dataSource === 'pinata' ? 'bg-green-600' : 'bg-yellow-600'
+                    }`}></div>
+                    {dataSource === 'pinata' ? 'Pinata IPFS' : 'Local Storage'}
+                  </div>
+                  <span className={`px-4 py-2 rounded-full text-sm font-medium ${getStatusColor(searchResult.status)}`}>
+                    {searchResult.status || 'Status Unknown'}
+                  </span>
+                </div>
               </div>
               
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
