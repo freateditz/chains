@@ -134,20 +134,37 @@ const AdminDashboard = () => {
     }
   };
 
-  const updateFIRStatus = (firNumber, newStatus) => {
-    const result = FIRStorage.updateFIRStatus(
-      firNumber, 
-      newStatus, 
-      `Status updated by admin officer`,
-      'Admin Officer'
-    );
-    
-    if (result.success) {
-      // Refresh the FIRs list
-      const updatedFIRs = FIRStorage.getAllFIRs();
-      setAllFIRs(updatedFIRs);
-      alert('FIR status updated successfully!');
-    } else {
+  const updateFIRStatus = async (firNumber, newStatus) => {
+    try {
+      let result;
+      
+      if (dataSource === 'pinata') {
+        // Use Pinata storage for update
+        result = await PinataStorage.updateFIRStatus(
+          firNumber, 
+          newStatus, 
+          `Status updated by admin officer`,
+          'Admin Officer'
+        );
+      } else {
+        // Use localStorage for update
+        result = FIRStorage.updateFIRStatus(
+          firNumber, 
+          newStatus, 
+          `Status updated by admin officer`,
+          'Admin Officer'
+        );
+      }
+      
+      if (result.success) {
+        // Refresh the FIRs list
+        await loadFIRData();
+        alert('FIR status updated successfully!');
+      } else {
+        alert('Failed to update FIR status: ' + (result.error || 'Unknown error'));
+      }
+    } catch (error) {
+      console.error('Error updating FIR status:', error);
       alert('Failed to update FIR status');
     }
   };
