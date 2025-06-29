@@ -114,6 +114,215 @@ app.post('/api/uploadFIR', async (req, res) => {
     }
 });
 
+// Get all FIRs from blockchain and Pinata
+app.get('/api/getAllFIRs', async (req, res) => {
+    try {
+        console.log('Fetching all FIRs from blockchain...');
+
+        // Get FIR count from blockchain
+        const firCount = await contract.getFIRCount();
+        console.log('Total FIRs in blockchain:', firCount.toString());
+
+        const allFIRs = [];
+
+        // Fetch each FIR from blockchain
+        for (let i = 0; i < firCount; i++) {
+            try {
+                const firData = await contract.getFIR(i);
+                console.log(`Fetching FIR ${i}:`, firData);
+
+                // Get IPFS data from Pinata
+                const ipfsHash = firData[3]; // ipfsHash is the 4th element
+                const pinataResponse = await axios.get(`https://gateway.pinata.cloud/ipfs/${ipfsHash}`);
+                
+                const ipfsData = pinataResponse.data;
+                console.log(`IPFS data for FIR ${i}:`, ipfsData);
+
+                // Combine blockchain and IPFS data
+                const combinedFIR = {
+                    id: i.toString(),
+                    firNumber: `FIR${new Date().getFullYear()}${String(i).padStart(6, '0')}`,
+                    blockchainId: i,
+                    title: firData[0],
+                    description: firData[1],
+                    severity: firData[2].toString(),
+                    ipfsHash: firData[3],
+                    timestamp: new Date().toISOString().split('T')[0],
+                    status: ipfsData.severity >= 3 ? 'Under Investigation' : 'FIR Registered',
+                    filedDate: new Date().toISOString().split('T')[0],
+                    lastUpdated: new Date().toISOString().split('T')[0],
+                    // Include all IPFS data
+                    ...ipfsData,
+                    // Timeline for admin dashboard
+                    timeline: [{
+                        date: new Date().toISOString().split('T')[0],
+                        status: ipfsData.severity >= 3 ? 'Under Investigation' : 'FIR Registered',
+                        description: 'FIR registered and stored on blockchain',
+                        officer: 'System Administrator'
+                    }]
+                };
+
+                allFIRs.push(combinedFIR);
+            } catch (error) {
+                console.error(`Error fetching FIR ${i}:`, error.message);
+                // Continue with next FIR instead of failing completely
+            }
+        }
+
+        console.log(`Successfully fetched ${allFIRs.length} FIRs from Pinata`);
+        
+        res.json({
+            success: true,
+            data: allFIRs,
+            total: allFIRs.length
+        });
+
+    } catch (error) {
+        console.error('Error fetching FIRs:', error.message);
+        res.status(500).json({
+            success: false,
+            message: 'Error fetching FIRs from blockchain',
+            error: error.message,
+        });
+    }
+});
+
+// Get specific FIR by ID from blockchain and Pinata
+app.get('/api/getFIR/:id', async (req, res) => {
+    try {
+        const firId = req.params.id;
+        console.log('Fetching FIR by ID:', firId);
+
+        // Get FIR from blockchain
+        const firData = await contract.getFIR(firId);
+        console.log('Blockchain FIR data:', firData);
+
+        // Get IPFS data from Pinata
+        const ipfsHash = firData[3];
+        const pinataResponse = await axios.get(`https://gateway.pinata.cloud/ipfs/${ipfsHash}`);
+        const ipfsData = pinataResponse.data;
+
+        // Combine blockchain and IPFS data
+        const combinedFIR = {
+            id: firId,
+            firNumber: `FIR${new Date().getFullYear()}${String(firId).padStart(6, '0')}`,
+            blockchainId: parseInt(firId),
+            title: firData[0],
+            description: firData[1],
+            severity: firData[2].toString(),
+            ipfsHash: firData[3],
+            timestamp: new Date().toISOString().split('T')[0],
+            status: ipfsData.severity >= 3 ? 'Under Investigation' : 'FIR Registered',
+            filedDate: new Date().toISOString().split('T')[0],
+            lastUpdated: new Date().toISOString().split('T')[0],
+            ...ipfsData,
+            timeline: [{
+                date: new Date().toISOString().split('T')[0],
+                status: ipfsData.severity >= 3 ? 'Under Investigation' : 'FIR Registered',
+                description: 'FIR registered and stored on blockchain',
+                officer: 'System Administrator'
+            }]
+        };
+
+        res.json({
+            success: true,
+            data: combinedFIR
+        });
+
+    } catch (error) {
+        console.error('Error fetching specific FIR:', error.message);
+        res.status(500).json({
+            success: false,
+            message: 'Error fetching FIR from blockchain',
+            error: error.message,
+        });
+    }
+});
+
+// Search FIR by criteria from Pinata data
+app.post('/api/searchFIR', async (req, res) => {
+    try {
+        const { searchType, searchValue } = req.body;
+        console.log('Searching FIR:', searchType, searchValue);
+
+        // First get all FIRs
+        const firCount = await contract.getFIRCount();
+        const searchValueLower = searchValue.toLowerCase().trim();
+
+        for (let i = 0; i < firCount; i++) {
+            try {
+                const firData = await contract.getFIR(i);
+                const ipfsHash = firData[3];
+                const pinataResponse = await axios.get(`https://gateway.pinata.cloud/ipfs/${ipfsHash}`);
+                const ipfsData = pinataResponse.data;
+
+                // Check if this FIR matches search criteria
+                let matches = false;
+                const firNumber = `FIR${new Date().getFullYear()}${String(i).padStart(6, '0')}`;
+
+                switch (searchType) {
+                    case 'fir':
+                        matches = firNumber.toLowerCase().includes(searchValueLower);
+                        break;
+                    case 'phone':
+                        matches = ipfsData.phone && ipfsData.phone.includes(searchValue);
+                        break;
+                    case 'email':
+                        matches = ipfsData.email && ipfsData.email.toLowerCase().includes(searchValueLower);
+                        break;
+                    case 'id':
+                        matches = ipfsData.idNumber && ipfsData.idNumber.toLowerCase().includes(searchValueLower);
+                        break;
+                }
+
+                if (matches) {
+                    const combinedFIR = {
+                        id: i.toString(),
+                        firNumber,
+                        blockchainId: i,
+                        title: firData[0],
+                        description: firData[1],
+                        severity: firData[2].toString(),
+                        ipfsHash: firData[3],
+                        status: ipfsData.severity >= 3 ? 'Under Investigation' : 'FIR Registered',
+                        filedDate: new Date().toISOString().split('T')[0],
+                        lastUpdated: new Date().toISOString().split('T')[0],
+                        ...ipfsData,
+                        timeline: [{
+                            date: new Date().toISOString().split('T')[0],
+                            status: ipfsData.severity >= 3 ? 'Under Investigation' : 'FIR Registered',
+                            description: 'FIR registered and stored on blockchain',
+                            officer: 'System Administrator'
+                        }]
+                    };
+
+                    return res.json({
+                        success: true,
+                        data: combinedFIR
+                    });
+                }
+            } catch (error) {
+                console.error(`Error searching FIR ${i}:`, error.message);
+                continue;
+            }
+        }
+
+        // No match found
+        res.json({
+            success: true,
+            data: null
+        });
+
+    } catch (error) {
+        console.error('Error searching FIR:', error.message);
+        res.status(500).json({
+            success: false,
+            message: 'Error searching FIR',
+            error: error.message,
+        });
+    }
+});
+
 // Start server
 app.listen(PORT, '0.0.0.0', () => {
     console.log(`JusticeChain Backend running on port ${PORT}`);
